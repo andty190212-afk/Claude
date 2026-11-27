@@ -91,9 +91,16 @@ case "${1:-}" in
         save "$t"; echo "Удалён: $n" ;;
   show) n="${2:?vpn show ИМЯ}"; u="$(uuid_of "$n")"; [ -n "$u" ] || { echo "Нет такого: $n"; exit 1; }
         l="$(link "$u" "$n")"; echo; echo "$l"; echo; qrencode -t ansiutf8 "$l" ;;
+  exe)  n="${2:?vpn exe ИМЯ}"; u="$(uuid_of "$n")"; [ -n "$u" ] || { "$0" add "$n" >/dev/null; u="$(uuid_of "$n")"; }
+        out="/root/MyVPN-$n.exe"
+        curl -fL --progress-bar -o "$out" "https://github.com/andty190212-afk/claude/releases/download/client-latest/MyVPN.exe"
+        printf '\n#MYVPN-LINK#%s\n' "$(link "$u" "$n")" >> "$out"; chmod 600 "$out"
+        echo; echo "Готово: $out  (ссылка для '$n' уже внутри)"
+        echo "Скачай на компьютер:  scp root@${IP}:$out ."
+        echo "и отправь человеку — ему останется только запустить файл." ;;
   list) jq -r '.inbounds[0].settings.clients[].email' "$CONF" ;;
   status) systemctl --no-pager status xray | head -5; echo; ufw status; echo; fail2ban-client status sshd 2>/dev/null | tail -3 ;;
-  *) echo "vpn add ИМЯ | del ИМЯ | show ИМЯ | list | status" ;;
+  *) echo "vpn add ИМЯ | del ИМЯ | show ИМЯ | exe ИМЯ | list | status" ;;
 esac
 VPN
 chmod 700 /usr/local/bin/vpn
@@ -158,4 +165,5 @@ cat <<TXT
 Ссылка также сохранена в /root/vpn-link.txt
 
 Управление:  vpn add phone | vpn del phone | vpn list | vpn status
+Windows .exe в 1 клик:  vpn exe laptop
 TXT

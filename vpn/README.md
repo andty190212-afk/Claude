@@ -24,7 +24,38 @@ bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/claud
 Сервер настроится сам при запуске. Ссылку потом посмотри командой `vpn show my-vpn`
 или в файле `/root/vpn-link.txt`.
 
-## Приложения
+## Windows: MyVPN.exe — подключение в 1 клик
+
+Готовый клиент, ничего настраивать не надо: **двойной клик → VPN работает,
+закрыл окно → выключился.**
+
+**Вариант А — личный exe со ссылкой внутри (удобнее всего для друзей).** На сервере:
+
+```bash
+vpn exe vasya
+```
+
+Получится `/root/MyVPN-vasya.exe` со вшитой ссылкой. Скачай его к себе
+(`scp root@IP:/root/MyVPN-vasya.exe .`) и отправь человеку в Telegram.
+Ему нужно только запустить файл.
+
+**Вариант Б — общий exe.** Скачай
+[MyVPN.exe](https://github.com/andty190212-afk/claude/releases/download/client-latest/MyVPN.exe),
+запусти и один раз вставь ссылку `vless://` — она запомнится.
+(Или положи рядом файл `vpn.txt` со ссылкой.)
+
+Как это работает: внутри exe — ядро Xray. Оно поднимает локальный прокси
+`127.0.0.1:10809` и включает его в настройках Windows, поэтому через VPN идут
+браузеры и большинство программ. При закрытии окна прокси выключается.
+Если программа была убита аварийно и интернет пропал — запусти `MyVPN.exe --off`.
+
+> Windows может показать «Windows защитила ваш компьютер» — exe не подписан.
+> Нажми «Подробнее» → «Выполнить в любом случае».
+
+Каждый новый пуш в `vpn/client/` автоматически пересобирает exe (GitHub Actions →
+релиз `client-latest`).
+
+## Другие приложения (телефон, Mac)
 
 - **Android:** Hiddify, v2rayNG
 - **iPhone:** Streisand, V2Box, Hiddify
@@ -55,6 +86,7 @@ vpn add phone     # новое устройство / друг — своя сс
 vpn del phone     # отключить
 vpn show phone    # показать ссылку снова
 vpn list          # все пользователи
+vpn exe laptop    # готовый MyVPN-laptop.exe для Windows
 vpn status        # состояние VPN, файрвола, fail2ban
 ```
 
