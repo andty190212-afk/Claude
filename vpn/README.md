@@ -55,6 +55,30 @@ vpn exe vasya
 Каждый новый пуш в `vpn/client/` автоматически пересобирает exe (GitHub Actions →
 релиз `client-latest`).
 
+## iPhone / iPad / Mac — без App Store
+
+Используется встроенный в iOS VPN (IKEv2) — ничего скачивать не нужно. На сервере:
+
+```bash
+vpn ios iphone
+```
+
+Получится файл `/root/MyVPN-iphone.mobileconfig`. Дальше:
+
+1. Скачай его к себе: `scp root@IP:/root/MyVPN-iphone.mobileconfig .`
+2. Отправь на iPhone: AirDrop, почта или Telegram → «Сохранить в Файлы» → открыть.
+3. **Настройки → Профиль загружен → Установить** (введи код телефона).
+4. Включай: **Настройки → VPN → MyVPN**.
+
+> ⚠️ IKEv2 — стандартный протокол, его легко распознать. В странах с сильной
+> блокировкой (например, в России) он может не работать или перестать работать.
+> Тогда используй ссылку `vless://` в бесплатном приложении из App Store
+> (Streisand, V2Box, Hiddify) — она маскируется намного лучше.
+> IKEv2 включается только при первом `vpn ios`, без него сервер его не использует.
+
+Своё приложение для iPhone без App Store сделать нельзя: Apple разрешает VPN-приложения
+только с платным аккаунтом разработчика.
+
 ## Другие приложения (телефон, Mac)
 
 - **Android:** Hiddify, v2rayNG
@@ -87,6 +111,7 @@ vpn del phone     # отключить
 vpn show phone    # показать ссылку снова
 vpn list          # все пользователи
 vpn exe laptop    # готовый MyVPN-laptop.exe для Windows
+vpn ios iphone    # профиль для iPhone без приложений
 vpn status        # состояние VPN, файрвола, fail2ban
 ```
 

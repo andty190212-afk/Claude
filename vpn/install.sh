@@ -98,9 +98,11 @@ case "${1:-}" in
         echo; echo "Готово: $out  (ссылка для '$n' уже внутри)"
         echo "Скачай на компьютер:  scp root@${IP}:$out ."
         echo "и отправь человеку — ему останется только запустить файл." ;;
+  ios)  n="${2:?vpn ios ИМЯ}"
+        bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/ios.sh) "$n" ;;
   list) jq -r '.inbounds[0].settings.clients[].email' "$CONF" ;;
   status) systemctl --no-pager status xray | head -5; echo; ufw status; echo; fail2ban-client status sshd 2>/dev/null | tail -3 ;;
-  *) echo "vpn add ИМЯ | del ИМЯ | show ИМЯ | exe ИМЯ | list | status" ;;
+  *) echo "vpn add ИМЯ | del ИМЯ | show ИМЯ | exe ИМЯ | ios ИМЯ | list | status" ;;
 esac
 VPN
 chmod 700 /usr/local/bin/vpn
@@ -166,4 +168,5 @@ cat <<TXT
 
 Управление:  vpn add phone | vpn del phone | vpn list | vpn status
 Windows .exe в 1 клик:  vpn exe laptop
+iPhone без приложений:  vpn ios iphone
 TXT
