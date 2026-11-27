@@ -23,7 +23,7 @@
 
 ```bash
 apt-get update && apt-get install -y git
-git clone https://github.com/andty190212-afk/claude.git
+git clone -b claude/zealous-bell-wylfdx https://github.com/andty190212-afk/claude.git
 cd claude/vpn && bash install.sh
 ```
 
