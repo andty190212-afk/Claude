@@ -1,0 +1,39 @@
+name: Build MyVPN.exe
+
+on:
+  push:
+    paths:
+      - "vpn/windows/**"
+      - ".github/workflows/vpn-client.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: vpn/windows/go.mod
+          cache-dependency-path: vpn/windows/go.sum
+      - name: Build
+        working-directory: vpn/windows
+        env:
+          GOOS: windows
+          GOARCH: amd64
+          CGO_ENABLED: "0"
+        run: go build -trimpath -ldflags "-s -w" -o ../../MyVPN.exe .
+      - name: Publish release "client-latest"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view client-latest >/dev/null 2>&1; then
+            gh release upload client-latest MyVPN.exe --clobber
+          else
+            gh release create client-latest MyVPN.exe --target "$GITHUB_SHA" \
+              --title "MyVPN для Windows" \
+              --notes "Скачай MyVPN.exe и запусти. При первом запуске вставь ссылку vless:// (или получи готовый exe командой 'vpn exe ИМЯ' на сервере)."
+          fi
