@@ -8,7 +8,7 @@
 Арендуй VPS с **Ubuntu 22.04/24.04**, зайди на него (`ssh root@IP`) и вставь:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/claude/zealous-bell-wylfdx/vpn/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
 ```
 
 Через ~2 минуты появится QR-код. Отсканируй его в приложении — готово.
@@ -18,7 +18,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/claud
 
 ```bash
 #!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/claude/zealous-bell-wylfdx/vpn/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
 ```
 
 Сервер настроится сам при запуске. Ссылку потом посмотри командой `vpn show my-vpn`

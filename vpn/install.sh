@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Личный VPN (VLESS + Reality) — установка в одну команду, с защитой сервера.
 #
-#   bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/claude/zealous-bell-wylfdx/vpn/install.sh)
+#   bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
 #
 # Ubuntu 20.04+/Debian 11+, от root. Повторный запуск безопасен: ключи не меняются.
 # Переменные (необязательно):
