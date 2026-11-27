@@ -3,12 +3,20 @@
 Протокол **VLESS + Reality** (Xray). Трафик выглядит как обычный HTTPS к крупному сайту,
 поэтому работает даже там, где WireGuard и OpenVPN блокируют.
 
+## Что где лежит
+
+| Папка | Для чего |
+|---|---|
+| [`server/`](server/) | установка VPN на сервер (VPS) |
+| [`windows/`](windows/) | клиент для ПК — `MyVPN.exe` |
+| [`iphone/`](iphone/) | iPhone / iPad / Mac без приложений |
+
 ## Установка в 1 команду
 
 Арендуй VPS с **Ubuntu 22.04/24.04**, зайди на него (`ssh root@IP`) и вставь:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/server/install.sh)
 ```
 
 Через ~2 минуты появится QR-код. Отсканируй его в приложении — готово.
@@ -18,7 +26,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/
 
 ```bash
 #!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/server/install.sh)
 ```
 
 Сервер настроится сам при запуске. Ссылку потом посмотри командой `vpn show my-vpn`
@@ -52,7 +60,7 @@ vpn exe vasya
 > Windows может показать «Windows защитила ваш компьютер» — exe не подписан.
 > Нажми «Подробнее» → «Выполнить в любом случае».
 
-Каждый новый пуш в `vpn/client/` автоматически пересобирает exe (GitHub Actions →
+Каждый новый пуш в `vpn/windows/` автоматически пересобирает exe (GitHub Actions →
 релиз `client-latest`).
 
 ## iPhone / iPad / Mac — без App Store

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Личный VPN (VLESS + Reality) — установка в одну команду, с защитой сервера.
 #
-#   bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/install.sh)
+#   bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/server/install.sh)
 #
 # Ubuntu 20.04+/Debian 11+, от root. Повторный запуск безопасен: ключи не меняются.
 # Переменные (необязательно):
@@ -99,7 +99,7 @@ case "${1:-}" in
         echo "Скачай на компьютер:  scp root@${IP}:$out ."
         echo "и отправь человеку — ему останется только запустить файл." ;;
   ios)  n="${2:?vpn ios ИМЯ}"
-        bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/ios.sh) "$n" ;;
+        bash <(curl -fsSL https://raw.githubusercontent.com/andty190212-afk/claude/main/vpn/iphone/ios.sh) "$n" ;;
   list) jq -r '.inbounds[0].settings.clients[].email' "$CONF" ;;
   status) systemctl --no-pager status xray | head -5; echo; ufw status; echo; fail2ban-client status sshd 2>/dev/null | tail -3 ;;
   *) echo "vpn add ИМЯ | del ИМЯ | show ИМЯ | exe ИМЯ | ios ИМЯ | list | status" ;;
